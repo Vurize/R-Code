@@ -49,11 +49,11 @@ w_3 = 13.455*10^9/tot
 r_p = w_1*r_1 + w_2*r_2 + w_3*r_3
 plot(r_p)
 
+# Uji Asumsi Data
 # Uji stasioneritas data
 adf.test(r_p) # Stasioner
 adf.test(r_asx) #Stasioner
 
-# ringkasan statistik
 ## Statistik Q untuk pengembalian kuadrat
 Q_p = NULL
 Q_asx = NULL

@@ -114,6 +114,7 @@ regressor = read_excel("~/Tugas Akhir/Referensi/Dampak bencana alam terhadap vol
 str(regressor) # Variabel dummy untuk hipotesis volatilitas
 regressor$Date = as.Date(regressor$Date)
 
+# Pembagian data
 # Bencana 1
 dis_1 = window(dis_p, start = "2014-09-09", end = "2015-01-18")
 dasx.1 = window(dis_asx, start = "2014-09-09", end = "2015-01-18")

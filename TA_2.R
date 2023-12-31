@@ -106,33 +106,12 @@ library(nortsTest)
 # 3. Uji dampak bencana dengan uji signifikansi terhadap persamaan (5)
 # 4. Jika p-value < 5% maka gagal menolak H0
 
-spec = ugarchspec(mean.model = list(armaOrder = c(0,0)),
-                  variance.model = list(model = "sGARCH", garchOrder = c(2, 2)),
-                  distribution.model = "norm")
-modelspec = dccspec(uspec = multispec(replicate(2,spec))
-                    ,dccOrder = c(1,2), distribution = "mvnorm")
-modelfit = dccfit(modelspec, data = data.frame(residu1, residu2))
-# Grafik volatilitas
-l = dim(modelfit@model[["modeldata"]][["data"]])[1]
-y1 = data.frame("time" = s1$Date[(length(s1$Date)-l+1):length(s1$Date)],
-                "estimated volatilities" = sqrt(250)*modelfit@model[["sigma"]][,1])
-y2 = data.frame("time" = s1$Date[(length(s1$Date)-l+1):length(s1$Date)],
-                "estimated volatilities" = sqrt(250)*modelfit@model[["sigma"]][,2])
-plot(y1, type = "l") 
-abline(v = as.Date(cat$CAT_Event_Start), col = "red")
-abline(v = as.Date(cat$`h+5`), col = "blue")
-abline(v = as.Date(cat$`h+15`), col = "black")
-plot(y2, type = "l")
-abline(v = as.Date(cat$CAT_Event_Start), col = "red")
-abline(v = as.Date(cat$`h+5`), col = "blue")
-abline(v = as.Date(cat$`h+15`), col = "black")
-
-dis_p = data.frame(y1$time,residu1)
+dis_p = data.frame(y1$time,residu1) # Data residu VAR unruk model DCC-GARCH
 dis_p = read.zoo(dis_p)
 dis_asx = data.frame(y2$time, residu2)
 dis_asx = read.zoo(dis_asx)
 regressor = read_excel("~/Tugas Akhir/Referensi/Dampak bencana alam terhadap volatilitas saham perusahaan PnC di Australia/Variabel dummy.xlsx")
-str(regressor)
+str(regressor) # Variabel dummy untuk hipotesis volatilitas
 regressor$Date = as.Date(regressor$Date)
 
 # Bencana 1
